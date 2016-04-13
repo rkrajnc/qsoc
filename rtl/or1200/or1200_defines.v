@@ -51,60 +51,6 @@
 //
 //`define OR1200_VERBOSE
 
-//  `define OR1200_ASIC
-////////////////////////////////////////////////////////
-//
-// Typical configuration for an ASIC
-//
-`ifdef OR1200_ASIC
-
-//
-// Target ASIC memories
-//
-//`define OR1200_ARTISAN_SSP
-//`define OR1200_ARTISAN_SDP
-//`define OR1200_ARTISAN_STP
-//`define OR1200_VIRTUALSILICON_SSP
-//`define OR1200_VIRTUALSILICON_STP_T1
-//`define OR1200_VIRTUALSILICON_STP_T2
-
-//
-// Do not implement Data cache
-//
-`define OR1200_NO_DC
-
-//
-// Do not implement Insn cache
-//
-`define OR1200_NO_IC
-
-//
-// Do not implement Data MMU
-//
-`define OR1200_NO_DMMU
-
-//
-// Do not implement Insn MMU
-//
-`define OR1200_NO_IMMU
-
-//
-// Select between ASIC optimized and generic multiplier
-//
-//`define OR1200_ASIC_MULTP2_32X32
-`define OR1200_GENERIC_MULTP2_32X32
-
-//
-// Size/type of insn/data cache if implemented
-//
-// `define OR1200_IC_1W_512B
-// `define OR1200_IC_1W_4KB
-`define OR1200_IC_1W_8KB
-// `define OR1200_DC_1W_4KB
-`define OR1200_DC_1W_8KB
-
-`else
-
 
 /////////////////////////////////////////////////////////
 //
@@ -114,7 +60,9 @@
 //
 // Target FPGA memories
 //
+`ifndef SOC_SIM
 `define OR1200_ALTERA_LPM
+`endif
 //`define OR1200_XILINX_RAMB4
 //`define OR1200_XILINX_RAM32X1D
 //`define OR1200_USE_RAM16X1D_FOR_RAM32X1D
@@ -157,7 +105,10 @@
 `define OR1200_DC_1W_4KB
 //`define OR1200_DC_1W_8KB
 
-`endif
+//
+// Select between 8- & 16-cycle divider
+//
+`define OR1200_16_CYCLE_DIV
 
 
 //////////////////////////////////////////////////////////
@@ -298,7 +249,7 @@
 //
 // To implement divide, multiplier needs to be implemented.
 //
-//`define OR1200_IMPL_DIV
+`define OR1200_IMPL_DIV
 
 //
 // Implement rotate in the ALU
@@ -322,15 +273,15 @@
 // Try either one to find what yields
 // higher clock frequencyin your case.
 //
-//`define OR1200_IMPL_ALU_COMP1
-`define OR1200_IMPL_ALU_COMP2
+`define OR1200_IMPL_ALU_COMP1
+//`define OR1200_IMPL_ALU_COMP2
 
 //
 // Implement multiplier
 //
 // By default multiplier is implemented
 //
-//`define OR1200_MULT_IMPLEMENTED
+`define OR1200_MULT_IMPLEMENTED
 
 //
 // Implement multiply-and-accumulate
@@ -434,10 +385,18 @@
 `define OR1200_SHROTOP_ROR	2'd3
 
 // Execution cycles per instruction
+`ifdef OR1200_16_CYCLE_DIV
+`define OR1200_MULTICYCLE_WIDTH	4
+`define OR1200_ONE_CYCLE		  4'd0
+`define OR1200_TWO_CYCLES		  4'd1
+`define OR1200_EIGHT_CYCLES		4'd7
+`define OR1200_SIXTEEN_CYCLES 4'd15
+`else
 `define OR1200_MULTICYCLE_WIDTH	3
-`define OR1200_ONE_CYCLE		3'd0
-`define OR1200_TWO_CYCLES		3'd1
+`define OR1200_ONE_CYCLE		  3'd0
+`define OR1200_TWO_CYCLES		  3'd1
 `define OR1200_EIGHT_CYCLES		3'd7
+`endif
 
 // Operand MUX selects
 `define OR1200_SEL_WIDTH		2
