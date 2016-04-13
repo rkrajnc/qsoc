@@ -1,4 +1,4 @@
-/* or1200_top_wrapper.b */
+/* or1200_top_wrapper.v */
 
 // only removes all un-needed signals
 

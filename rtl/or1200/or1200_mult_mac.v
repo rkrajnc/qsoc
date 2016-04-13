@@ -215,11 +215,30 @@ always @(posedge rst or posedge clk)
 // Registered output from the divider
 //
 `ifdef OR1200_IMPL_DIV
+`ifdef OR1200_16_CYCLE_DIV
+reg	[3:0]			div_cntr;
+`else
 reg	[2:0]			div_cntr;
+`endif
 reg     [width-1:0]		div_x_r;
 reg     [width-1:0]		div_t;
 reg     [2*width-1:0]		div_y_r;
 
+`ifdef OR1200_16_CYCLE_DIV
+wire [1:0] cmp0;
+wire [31:0] cmp1_x0 = cmp0[1] ?       x - {y, 31'h0} :       x;
+wire [31:0] cmp0_x0 = cmp0[0] ? cmp1_x0 - {y, 30'h0} : cmp1_x0;
+assign cmp0[1] = ({y, 31'h0} <=       x);
+assign cmp0[0] = ({y, 30'h0} <= cmp1_x0);
+wire [1:0] cmp;
+wire [31:0] cmp1_x = cmp[1] ? div_x_r- div_y_r[63:1] : div_x_r;
+wire [31:0] cmp0_x = cmp[0] ? cmp1_x - div_y_r[63:2] : cmp1_x;
+assign cmp[1] = (div_y_r[63:1] <= div_x_r);
+assign cmp[0] = (div_y_r[63:2] <= cmp1_x);
+wire [63:0] div_y = (div_cntr == 4'h0) ?  {y, 32'h0} : div_y_r;
+assign div_result = {div_t[31-2:0], cmp};
+wire [31:0] div_result0 = {div_t[31-2:0], ((div_cntr == 4'h0) ? cmp0 : cmp)};
+`else
 wire [3:0] cmp0;
 wire [31:0] cmp3_x0 = cmp0[3] ?       x - {y, 31'h0} :       x;
 wire [31:0] cmp2_x0 = cmp0[2] ? cmp3_x0 - {y, 30'h0} : cmp3_x0;
@@ -229,7 +248,6 @@ assign cmp0[3] = ({y, 31'h0} <=       x);
 assign cmp0[2] = ({y, 30'h0} <= cmp3_x0);
 assign cmp0[1] = ({y, 29'h0} <= cmp2_x0);
 assign cmp0[0] = ({y, 28'h0} <= cmp1_x0);
-
 wire [3:0] cmp;
 wire [31:0] cmp3_x = cmp[3] ? div_x_r- div_y_r[63:1] : div_x_r;
 wire [31:0] cmp2_x = cmp[2] ? cmp3_x - div_y_r[63:2] : cmp3_x;
@@ -239,28 +257,44 @@ assign cmp[3] = (div_y_r[63:1] <= div_x_r);
 assign cmp[2] = (div_y_r[63:2] <= cmp3_x);
 assign cmp[1] = (div_y_r[63:3] <= cmp2_x);
 assign cmp[0] = (div_y_r[63:4] <= cmp1_x);
-
 wire [63:0] div_y = (div_cntr == 3'h0) ?  {y, 32'h0} : div_y_r;
-
 assign div_result = {div_t[31-4:0], cmp};
 wire [31:0] div_result0 = {div_t[31-4:0], ((div_cntr == 3'h0) ? cmp0 : cmp)};
+`endif
 
 always @(posedge rst or posedge clk)
 	if (rst) begin
 		div_y_r <= #1 64'h0000_0000;
 		div_x_r <= #1 32'h0000_0000;
 		div_t <= #1 32'h0000_0000;
+    `ifdef OR1200_16_CYCLE_DIV
+		div_cntr <= #1 4'h0;
+    `else
 		div_cntr <= #1 3'h0;
+    `endif
 	end else begin
 		if (alu_op_div_divu) begin
+      `ifdef OR1200_16_CYCLE_DIV
+			div_cntr <= #1 div_cntr + 4'h1;
+			div_x_r <= #1 (div_cntr == 4'h0) ? cmp0_x0 : cmp0_x;
+      `else
 			div_cntr <= #1 div_cntr + 3'h1;
 			div_x_r <= #1 (div_cntr == 3'h0) ? cmp0_x0 : cmp0_x;
+      `endif
 			div_t <= #1 div_result0;
-                        div_y_r <= #1 {4'h0, div_y[63:4]};
+      `ifdef OR1200_16_CYCLE_DIV
+			div_y_r <= #1 {2'h0, div_y[63:2]};
+      `else
+			div_y_r <= #1 {4'h0, div_y[63:4]};
+      `endif
 		end else begin
+      `ifdef OR1200_16_CYCLE_DIV
+			div_cntr <= #1 4'h0;
+      `else
 			div_cntr <= #1 3'h0;
-                end
-        end
+      `endif
+    end
+  end
 `endif // OR1200_IMPL_DIV
 
 `else // OR1200_MULT_IMPLEMENTED

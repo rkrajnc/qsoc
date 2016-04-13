@@ -292,7 +292,11 @@ always @(id_insn or divide) begin
     // ALU instructions except the one with immediate
     `OR1200_OR32_ALU:
       if (divide)
+        `ifdef OR1200_16_CYCLE_DIV
+        multicycle = `OR1200_SIXTEEN_CYCLES;
+        `else
         multicycle = `OR1200_EIGHT_CYCLES;
+        `endif
       else
         multicycle = id_insn[`OR1200_ALUMCYC_POS];
     
