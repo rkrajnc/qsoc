@@ -1,0 +1,79 @@
+[*]
+[*] GTKWave Analyzer v3.3.70 (w)1999-2016 BSI
+[*] Sun Apr 17 20:36:32 2016
+[*]
+[dumpfile] "/home/rkrajnc/Dropbox/work/electronics/fpga/qsoc/ver/or1200-divtest/out/or1200-divtest_dump.fst"
+[dumpfile_mtime] "Sun Apr 17 20:36:17 2016"
+[dumpfile_size] 3815039
+[savefile] "/home/rkrajnc/Dropbox/work/electronics/fpga/qsoc/ver/or1200-divtest/or1200-divtest.gtkw"
+[timestart] 7413000
+[size] 1920 1062
+[pos] -1 -1
+*-15.000000 3451000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] or1200_divtest_tb.
+[treeopen] or1200_divtest_tb.or1200.or1200.
+[treeopen] or1200_divtest_tb.or1200.or1200.or1200_cpu.
+[treeopen] or1200_divtest_tb.or1200.or1200.or1200_cpu.or1200_mult_mac.
+[treeopen] or1200_divtest_tb.or1200.or1200.or1200_cpu.or1200_rf.
+[sst_width] 233
+[signals_width] 231
+[sst_expanded] 1
+[sst_vpaned_height] 310
+@28
+or1200_divtest_tb.clk
+or1200_divtest_tb.rst
+@200
+-
+@28
+or1200_divtest_tb.icpu_cs
+@22
+or1200_divtest_tb.icpu_sel[3:0]
+@28
+or1200_divtest_tb.icpu_we
+@22
+or1200_divtest_tb.icpu_adr[23:0]
+or1200_divtest_tb.icpu_dat_w[31:0]
+or1200_divtest_tb.icpu_dat_r[31:0]
+@28
+or1200_divtest_tb.icpu_ack
+@200
+-
+@28
+or1200_divtest_tb.dcpu_cs
+@22
+or1200_divtest_tb.dcpu_sel[3:0]
+@28
+or1200_divtest_tb.dcpu_we
+@22
+or1200_divtest_tb.dcpu_adr[23:0]
+or1200_divtest_tb.dcpu_dat_w[31:0]
+or1200_divtest_tb.dcpu_dat_r[31:0]
+@28
+or1200_divtest_tb.dcpu_ack
+@200
+-
+@28
+or1200_divtest_tb.sarb_cs
+@22
+or1200_divtest_tb.sarb_sel[3:0]
+@28
+or1200_divtest_tb.sarb_we
+@22
+or1200_divtest_tb.sarb_adr[23:0]
+or1200_divtest_tb.sarb_dat_w[31:0]
+or1200_divtest_tb.sarb_dat_r[31:0]
+@28
+or1200_divtest_tb.sarb_ack
+@200
+-
+@28
+or1200_divtest_tb.arbiter.ms[1:0]
+or1200_divtest_tb.arbiter.ms_a
+or1200_divtest_tb.arbiter.ms_reg[1:0]
+or1200_divtest_tb.arbiter.ms_tmp[1:0]
+@200
+-
+@22
+or1200_divtest_tb.r3w[31:0]
+[pattern_trace] 1
+[pattern_trace] 0
