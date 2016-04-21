@@ -1,0 +1,86 @@
+[*]
+[*] GTKWave Analyzer v3.3.48 (w)1999-2013 BSI
+[*] Thu Apr 21 14:01:03 2016
+[*]
+[dumpfile] "/home/rokk/Dropbox/work/electronics/fpga/qsoc/ver/qmem/out/wav/wavedummp.vcd"
+[dumpfile_mtime] "Thu Apr 21 13:59:55 2016"
+[dumpfile_size] 81440
+[savefile] "/home/rokk/Dropbox/work/electronics/fpga/qsoc/ver/qmem/qmem_tb.gtkw"
+[timestart] 0
+[size] 1607 948
+[pos] -1 -1
+*-15.042921 2342100 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] qmem_tb.
+[treeopen] qmem_tb.m1.
+[sst_width] 220
+[signals_width] 161
+[sst_expanded] 1
+[sst_vpaned_height] 272
+@28
+qmem_tb.clk
+qmem_tb.rst
+qmem_tb.m0_cs
+@22
+qmem_tb.m0_sel[3:0]
+@28
+qmem_tb.m0_we
+@22
+qmem_tb.m0_adr[9:0]
+qmem_tb.m0_dat_w[31:0]
+qmem_tb.m0_dat_r[31:0]
+@28
+qmem_tb.m0_ack
+qmem_tb.m0_err
+@200
+-
+@28
+qmem_tb.m1_cs
+@22
+qmem_tb.m1_sel[3:0]
+@28
+qmem_tb.m1_we
+@22
+qmem_tb.m1_adr[9:0]
+qmem_tb.m1_dat_w[31:0]
+qmem_tb.m1_dat_r[31:0]
+@28
+qmem_tb.m1_ack
+qmem_tb.m1_err
+@200
+-
+@28
+qmem_tb.ms[1:0]
+qmem_tb.ss[1:0]
+qmem_tb.err
+@200
+-
+@28
+qmem_tb.s0_cs
+@22
+qmem_tb.s0_sel[3:0]
+@28
+qmem_tb.s0_we
+@22
+qmem_tb.s0_adr[8:0]
+qmem_tb.s0_dat_w[31:0]
+qmem_tb.s0_dat_r[31:0]
+@28
+qmem_tb.s0_ack
+qmem_tb.s0_err
+@200
+-
+@28
+qmem_tb.s1_cs
+@22
+qmem_tb.s1_sel[3:0]
+@28
+qmem_tb.s1_we
+@22
+qmem_tb.s1_adr[8:0]
+qmem_tb.s1_dat_w[31:0]
+qmem_tb.s1_dat_r[31:0]
+@28
+qmem_tb.s1_ack
+qmem_tb.s1_err
+[pattern_trace] 1
+[pattern_trace] 0
